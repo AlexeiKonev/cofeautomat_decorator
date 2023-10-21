@@ -19,27 +19,38 @@ namespace CofeAutomat
      */
     /// <summary>
     /// бъекты должны быть взаимо-
-//    заменяемы с Beverage, поэтому
-//    расширяем класс Beverage.
-//    Также все декораторы долж-
-//ны заново реализовать метод
-//    getDescription(). Зачем? Скоро
-//    узнаете...
-//    Объект Beverage, кото-
-//рый будет «заворачиваться»
-//в каждый Decorator.Обрати-
-//те внимание: мы используем
-//    подтип Beverage, чтобы деко-
-//ратор мог быть оберткой для
-//    любого напитка.
-//    128
-//глава 3
-//Программируем классы напитков
-     /// </summary>
+    //    заменяемы с Beverage, поэтому
+    //    расширяем класс Beverage.
+    //    Также все декораторы долж-
+    //ны заново реализовать метод
+    //    getDescription(). Зачем? Скоро
+    //    узнаете...
+    //    Объект Beverage, кото-
+    //рый будет «заворачиваться»
+    //в каждый Decorator.Обрати-
+    //те внимание: мы используем
+    //    подтип Beverage, чтобы деко-
+    //ратор мог быть оберткой для
+    //    любого напитка.
+    //    128
+    //глава 3
+    //Программируем классы напитков
+    /// </summary>
+    /// 
+
+    public abstract class CondimentDecorator : Beverage
+    {
+       public Beverage beverage; //abstractый напиток
+      public abstract new string GetDescription();
+}
+
+
+
     public abstract class Beverage
     {
      public   string description = "Unknown Beverage";
-        public string getDescription()
+
+        public string GetDescription()
         {
             return description;
         }
@@ -80,7 +91,7 @@ namespace CofeAutomat
     /// </summary>
     public class HouseBlend : Beverage
     {
-public HouseBlend()
+    public HouseBlend()
     {
         description = "House Blend Coffee";
     }
