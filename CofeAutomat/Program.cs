@@ -11,21 +11,20 @@ namespace CofeAutomat
         static void Main(string[] args)
         {
 
-            Beverage beverage = new Espresso();
-Console.WriteLine(beverage.GetDescription()
-+ " $" + beverage.cost());
-Beverage beverage2 = new DarkRoast();
-beverage2 = new Mocha(beverage2);
-beverage2 = new Mocha(beverage2);
-beverage2 = new Whip(beverage2);
-Console.WriteLine(beverage2.GetDescription()
-+ " $" + beverage2.cost());
-Beverage beverage3 = new HouseBlend();
-beverage3 = new Soy(beverage3);
-beverage3 = new Mocha(beverage3);
-beverage3 = new Whip(beverage3);
-Console.WriteLine(beverage3.GetDescription()
-+ " $" + beverage3.cost());
+           Beverage beverage = new Espresso();
+            Console.WriteLine(beverage.GetDescription() + " $" + beverage.Cost());
+
+            Beverage beverage2 = new HouseBlend();
+            beverage2 = new Mocha(beverage2);
+            beverage2 = new Soy(beverage2);
+            beverage2 = new Whip(beverage2);
+            Console.WriteLine(beverage2.GetDescription() + " $" + beverage2.Cost());
+
+            Beverage beverage3 = new DarkRoast();
+            beverage3 = new Mocha(beverage3);
+            beverage3 = new Mocha(beverage3);
+            beverage3 = new Whip(beverage3);
+            Console.WriteLine(beverage3.GetDescription() + " $" + beverage3.Cost());
             Console.ReadKey();
         }
     }
@@ -76,21 +75,16 @@ Console.WriteLine(beverage3.GetDescription()
 
     public abstract class CondimentDecorator : Beverage
     {
-       public Beverage beverage; //abstractый напиток
-      public abstract new string GetDescription();
-}
+        protected Beverage Beverage;
 
+    }
 
 
     public abstract class Beverage
     {
-     public   string description = "Unknown Beverage";
+        public abstract string GetDescription();
 
-        public string GetDescription()
-        {
-            return description;
-        }
-        public abstract double cost();
+        public abstract decimal Cost();
     }
 
     /// <summary>
@@ -104,30 +98,28 @@ Console.WriteLine(beverage3.GetDescription()
 //му мы просто возвращаем стоимость «базового»
 //эспрессо — $1.99.
     /// </summary>
-    public class Espresso : Beverage
+  public class Espresso : Beverage
     {
-    public Espresso()
-    {
-        description = "Espresso";//Описание задается в конструкторе
-    }
-   
-
-        public override double cost()
+        public override string GetDescription()
         {
-            return 1.99;
+            return "Espresso";
+        }
+
+        public override decimal Cost()
+        {
+            return 1.99m;
         }
     }
 public class DarkRoast : Beverage
     {
-    public DarkRoast()
-    {
-        description = "DarkRoast";//Описание задается в конструкторе
-    }
-   
-
-        public override double cost()
+        public override string GetDescription()
         {
-            return .99;
+            return "Dark Roast Coffee";
+        }
+
+        public override decimal Cost()
+        {
+            return 0.99m;
         }
     }
 
@@ -140,70 +132,71 @@ public class DarkRoast : Beverage
     /// </summary>
     public class HouseBlend : Beverage
     {
-    public HouseBlend()
-    {
-        description = "House Blend Coffee";
-    }
-    public override double cost()
-    {
-        return 0.89;
-    }
-}
-
-    public class Mocha : CondimentDecorator
-    {
-   public Mocha(Beverage beverage)
-    {
-        this.beverage = beverage;
-    }
-    public override string GetDescription()
-    {
-        return beverage.GetDescription() + ", Mocha";
-    }
-   
-        public override double cost()
+        public override string GetDescription()
         {
-            return beverage.cost() + .20;
+            return "House Blend Coffee";
         }
-    } 
+
+        public override decimal Cost()
+        {
+            return 0.89m;
+        }
+    }
+
+     public class Mocha : CondimentDecorator
+    {
+
+        public Mocha(Beverage beverage)
+        {
+            Beverage = beverage;
+        }
+
+        public override string GetDescription()
+        {
+            return Beverage.GetDescription() + ", Mocha";
+        }
+
+        public override decimal Cost()
+        {
+            return 0.20m + Beverage.Cost();
+        }
+    }
 
 
 
    public class Whip : CondimentDecorator
     {
-     public Whip(Beverage beverage)
-    {
-        this.beverage = beverage;
-    }
-    public override string GetDescription()
-    {
-        return beverage.GetDescription() + ", Whip";
-    }
-   
-
-         
-
-        public override double cost()
+        public Whip(Beverage beverage)
         {
-            return beverage.cost() + .10;
+            Beverage = beverage;
+        }
+
+        public override string GetDescription()
+        {
+            return Beverage.GetDescription() + ", Whip";
+        }
+
+        public override decimal Cost()
+        {
+            return Beverage.Cost() + 0.10m;
         }
     }
     
-    public class Soy : CondimentDecorator
+     public class Soy : CondimentDecorator
     {
-   public Soy(Beverage beverage)
-    {
-        this.beverage = beverage;
-    }
-    public override string GetDescription()
-    {
-        return beverage.GetDescription() + ", Soy";
-    }
-   
-
-        public override double cost()
+        public Soy(Beverage beverage)
         {
-            return beverage.cost() + .15;
+            Beverage = beverage;
+        }
+
+        public override string GetDescription()
+        {
+            return Beverage.GetDescription() + ", Soy";
+        }
+
+        public override decimal Cost()
+        {
+            return Beverage.Cost() + 0.15m;
         }
     }
 }
