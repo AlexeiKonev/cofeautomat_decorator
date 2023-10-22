@@ -14,7 +14,26 @@ namespace CofeAutomat
     }
 
     /*classes
-     * 
+     * Starbuzz Coffee
+.89
+.99
+1.05
+1.99
+.10
+.20
+.15
+.10
+реализация классов напитков
+Кофе
+Домашняя смесь
+Темн.обжарка
+Без кофеина
+Эспрессо
+Дополнения
+Молочная пена
+Шоколад
+Соя
+Взбитые сливки
      * 
      */
     /// <summary>
@@ -72,7 +91,7 @@ namespace CofeAutomat
     {
     public Espresso()
     {
-        description = "Espresso";
+        description = "Espresso";//Описание задается в конструкторе
     }
    
 
@@ -100,4 +119,24 @@ namespace CofeAutomat
         return 0.89;
     }
 }
+
+    public class Mocha : CondimentDecorator
+    {
+   public Mocha(Beverage beverage)
+    {
+        this.beverage = beverage;
+    }
+    public override string GetDescription()
+    {
+        return beverage.GetDescription() + ", Mocha";
+    }
+   
+
+         
+
+        public override double cost()
+        {
+            return beverage.cost() + .20;
+        }
+    }
 }
