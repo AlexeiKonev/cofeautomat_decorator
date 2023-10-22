@@ -10,6 +10,23 @@ namespace CofeAutomat
     {
         static void Main(string[] args)
         {
+
+            Beverage beverage = new Espresso();
+Console.WriteLine(beverage.GetDescription()
++ " $" + beverage.cost());
+Beverage beverage2 = new DarkRoast();
+beverage2 = new Mocha(beverage2);
+beverage2 = new Mocha(beverage2);
+beverage2 = new Whip(beverage2);
+Console.WriteLine(beverage2.GetDescription()
++ " $" + beverage2.cost());
+Beverage beverage3 = new HouseBlend();
+beverage3 = new Soy(beverage3);
+beverage3 = new Mocha(beverage3);
+beverage3 = new Whip(beverage3);
+Console.WriteLine(beverage3.GetDescription()
++ " $" + beverage3.cost());
+            Console.ReadKey();
         }
     }
 
@@ -42,7 +59,7 @@ namespace CofeAutomat
     //    расширяем класс Beverage.
     //    Также все декораторы долж-
     //ны заново реализовать метод
-    //    getDescription(). Зачем? Скоро
+    //    GetDescription(). Зачем? Скоро
     //    узнаете...
     //    Объект Beverage, кото-
     //рый будет «заворачиваться»
@@ -100,6 +117,19 @@ namespace CofeAutomat
             return 1.99;
         }
     }
+public class DarkRoast : Beverage
+    {
+    public DarkRoast()
+    {
+        description = "DarkRoast";//Описание задается в конструкторе
+    }
+   
+
+        public override double cost()
+        {
+            return .99;
+        }
+    }
 
     /// <summary> Другой класс напитка. От нас
 //    требуется лишь назначить подхо-
@@ -131,12 +161,49 @@ namespace CofeAutomat
         return beverage.GetDescription() + ", Mocha";
     }
    
+        public override double cost()
+        {
+            return beverage.cost() + .20;
+        }
+    } 
+
+
+
+   public class Whip : CondimentDecorator
+    {
+     public Whip(Beverage beverage)
+    {
+        this.beverage = beverage;
+    }
+    public override string GetDescription()
+    {
+        return beverage.GetDescription() + ", Whip";
+    }
+   
 
          
 
         public override double cost()
         {
-            return beverage.cost() + .20;
+            return beverage.cost() + .10;
+        }
+    }
+    
+    public class Soy : CondimentDecorator
+    {
+   public Soy(Beverage beverage)
+    {
+        this.beverage = beverage;
+    }
+    public override string GetDescription()
+    {
+        return beverage.GetDescription() + ", Soy";
+    }
+   
+
+        public override double cost()
+        {
+            return beverage.cost() + .15;
         }
     }
 }
