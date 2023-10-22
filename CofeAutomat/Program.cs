@@ -128,7 +128,7 @@ namespace CofeAutomat
     }
     public override string GetDescription()
     {
-        return beverage.GetDescription() + ", Mocha1";
+        return beverage.GetDescription() + ", Mocha2";
     }
    
 
